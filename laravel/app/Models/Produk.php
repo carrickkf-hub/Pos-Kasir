@@ -13,7 +13,8 @@ class Produk extends Model
     protected $fillable = [
         'nama',
         'deskripsi',
-        'harga',
+        'harga_beli',
+        'harga_jual',
         'stok',
         'kategori_id',
     ];

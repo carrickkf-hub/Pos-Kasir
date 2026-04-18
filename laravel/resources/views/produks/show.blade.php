@@ -14,7 +14,8 @@
                 <h5 class="card-title">{{ $produk->nama }}</h5>
                 <p class="card-text"><strong>Kategori:</strong> {{ $produk->kategori ? $produk->kategori->nama : 'Tidak ada' }}</p>
                 <p class="card-text">{{ $produk->deskripsi }}</p>
-                <p class="card-text"><strong>Harga:</strong> Rp{{ number_format($produk->harga, 2, ',', '.') }}</p>
+                <p class="card-text"><strong>Harga Beli:</strong> Rp{{ number_format($produk->harga_beli, 2, ',', '.') }}</p>
+                <p class="card-text"><strong>Harga Jual:</strong> Rp{{ number_format($produk->harga_jual, 2, ',', '.') }}</p>
                 <p class="card-text"><strong>Stok:</strong> {{ $produk->stok }}</p>
                 <p class="card-text"><small class="text-muted">Dibuat pada: {{ $produk->created_at }}</small></p>
             </div>

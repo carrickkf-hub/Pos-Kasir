@@ -25,12 +25,13 @@ class ProdukController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'harga' => 'required|numeric|min:0',
+            'harga_beli' => 'required|numeric|min:0',
+            'harga_jual' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
             'kategori_id' => 'nullable|exists:kategoris,id',
         ]);
 
-        Produk::create($request->only(['nama', 'deskripsi', 'harga', 'stok', 'kategori_id']));
+        Produk::create($request->only(['nama', 'deskripsi', 'harga_beli', 'harga_jual', 'stok', 'kategori_id']));
 
         return redirect()->route('produks.index')->with('success', 'Produk berhasil ditambahkan.');
     }
@@ -52,12 +53,13 @@ class ProdukController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'harga' => 'required|numeric|min:0',
+            'harga_beli' => 'required|numeric|min:0',
+            'harga_jual' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
             'kategori_id' => 'nullable|exists:kategoris,id',
         ]);
 
-        $produk->update($request->only(['nama', 'deskripsi', 'harga', 'stok', 'kategori_id']));
+        $produk->update($request->only(['nama', 'deskripsi', 'harga_beli', 'harga_jual', 'stok', 'kategori_id']));
 
         return redirect()->route('produks.index')->with('success', 'Produk berhasil diperbarui.');
     }

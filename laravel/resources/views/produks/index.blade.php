@@ -19,7 +19,8 @@
                     <th>ID</th>
                     <th>Nama</th>
                     <th>Kategori</th>
-                    <th>Harga</th>
+                    <th>Harga Beli</th>
+                    <th>Harga Jual</th>
                     <th>Stok</th>
                     <th>Aksi</th>
                 </tr>
@@ -30,7 +31,8 @@
                         <td>{{ $produk->id }}</td>
                         <td>{{ $produk->nama }}</td>
                         <td>{{ $produk->kategori ? $produk->kategori->nama : '-' }}</td>
-                        <td>Rp{{ number_format($produk->harga, 2, ',', '.') }}</td>
+                        <td>Rp{{ number_format($produk->harga_beli, 2, ',', '.') }}</td>
+                        <td>Rp{{ number_format($produk->harga_jual, 2, ',', '.') }}</td>
                         <td>{{ $produk->stok }}</td>
                         <td>
                             <a href="{{ route('produks.show', $produk) }}" class="btn btn-info btn-sm">Lihat</a>

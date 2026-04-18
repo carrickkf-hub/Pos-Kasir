@@ -30,8 +30,12 @@
                 <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3">{{ $produk->deskripsi }}</textarea>
             </div>
             <div class="mb-3">
-                <label for="harga" class="form-label">Harga</label>
-                <input type="number" class="form-control" id="harga" name="harga" value="{{ $produk->harga }}" step="0.01" min="0" required>
+                <label for="harga_beli" class="form-label">Harga Beli</label>
+                <input type="number" class="form-control" id="harga_beli" name="harga_beli" value="{{ $produk->harga_beli }}" step="0.01" min="0" required>
+            </div>
+            <div class="mb-3">
+                <label for="harga_jual" class="form-label">Harga Jual</label>
+                <input type="number" class="form-control" id="harga_jual" name="harga_jual" value="{{ $produk->harga_jual }}" step="0.01" min="0" required>
             </div>
             <div class="mb-3">
                 <label for="stok" class="form-label">Stok</label>
