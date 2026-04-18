@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
 {
+    public function index()
+    {
+        $transaksis = Transaksi::with('produk')->latest('tanggal_transaksi')->get();
+        return view('transaksis.index', compact('transaksis'));
+    }
+
     public function create()
     {
         $produks = Produk::where('stok', '>', 0)->get();
@@ -57,6 +63,6 @@ class TransaksiController extends Controller
             $produk->decrement('stok', $request->jumlah);
         });
 
-        return redirect()->route('transaksis.create')->with('success', 'Pembayaran berhasil! Total: Rp ' . number_format($totalHarga, 0, ',', '.'));
+        return redirect()->route('transaksis.index')->with('success', 'Pembayaran berhasil! Total: Rp ' . number_format($totalHarga, 0, ',', '.'));
     }
 }

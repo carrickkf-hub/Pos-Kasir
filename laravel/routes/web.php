@@ -18,3 +18,4 @@ Route::get('/stok-hampir-habis', [ProdukController::class, 'stokHampirHabis'])->
 // Route untuk transaksi pembayaran
 Route::get('/pembayaran', [TransaksiController::class, 'create'])->name('transaksis.create');
 Route::post('/pembayaran', [TransaksiController::class, 'store'])->name('transaksis.store');
+Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksis.index');

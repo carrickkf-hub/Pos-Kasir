@@ -45,6 +45,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('transaksis.create') }}">Pembayaran</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('transaksis.index') }}">Riwayat Transaksi</a>
+                    </li>
                 </ul>
             </div>
         </div>
