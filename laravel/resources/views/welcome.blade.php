@@ -58,7 +58,7 @@
                     {{-- POS Navigation --}}
                     <div class="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
                         <h2 class="text-lg font-semibold mb-3 text-blue-900 dark:text-blue-100">🛒 POS System Navigation</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                             <a href="{{ route('kategoris.index') }}" class="inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium transition-colors">
                                 📁 Manage Categories
                             </a>
@@ -67,6 +67,9 @@
                             </a>
                             <a href="{{ route('stok.hampir.habis') }}" class="inline-flex items-center justify-center px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-md text-sm font-medium transition-colors">
                                 ⚠️ Low Stock Alert
+                            </a>
+                            <a href="{{ route('transaksis.create') }}" class="inline-flex items-center justify-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md text-sm font-medium transition-colors">
+                                💰 Process Payment
                             </a>
                         </div>
                     </div>
