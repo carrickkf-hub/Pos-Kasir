@@ -12,6 +12,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">{{ $produk->nama }}</h5>
+                <p class="card-text"><strong>Kategori:</strong> {{ $produk->kategori ? $produk->kategori->nama : 'Tidak ada' }}</p>
                 <p class="card-text">{{ $produk->deskripsi }}</p>
                 <p class="card-text"><strong>Harga:</strong> Rp{{ number_format($produk->harga, 2, ',', '.') }}</p>
                 <p class="card-text"><strong>Stok:</strong> {{ $produk->stok }}</p>

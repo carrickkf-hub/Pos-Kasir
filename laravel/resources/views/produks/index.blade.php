@@ -18,6 +18,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nama</th>
+                    <th>Kategori</th>
                     <th>Harga</th>
                     <th>Stok</th>
                     <th>Aksi</th>
@@ -28,6 +29,7 @@
                     <tr>
                         <td>{{ $produk->id }}</td>
                         <td>{{ $produk->nama }}</td>
+                        <td>{{ $produk->kategori ? $produk->kategori->nama : '-' }}</td>
                         <td>Rp{{ number_format($produk->harga, 2, ',', '.') }}</td>
                         <td>{{ $produk->stok }}</td>
                         <td>

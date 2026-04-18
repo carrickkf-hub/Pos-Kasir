@@ -12,6 +12,15 @@
         <form action="{{ route('produks.store') }}" method="POST">
             @csrf
             <div class="mb-3">
+                <label for="kategori_id" class="form-label">Kategori</label>
+                <select class="form-select" id="kategori_id" name="kategori_id">
+                    <option value="">Pilih kategori</option>
+                    @foreach($kategoris as $kategori)
+                        <option value="{{ $kategori->id }}">{{ $kategori->nama }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="nama" class="form-label">Nama</label>
                 <input type="text" class="form-control" id="nama" name="nama" required>
             </div>
