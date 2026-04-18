@@ -20,6 +20,7 @@ class TransaksiController extends Controller
         $request->validate([
             'produk_id' => 'required|exists:produks,id',
             'jumlah' => 'required|integer|min:1',
+            'bayar' => 'required|numeric|min:0',
             'metode_pembayaran' => 'required|in:tunai,kartu,transfer'
         ]);
 
@@ -31,14 +32,23 @@ class TransaksiController extends Controller
         }
 
         $totalHarga = $produk->harga_jual * $request->jumlah;
+        $bayar = $request->bayar;
 
-        DB::transaction(function () use ($request, $produk, $totalHarga) {
+        if ($bayar < $totalHarga) {
+            return back()->withErrors(['bayar' => 'Nominal pembayaran harus sama atau lebih besar dari total harga.']);
+        }
+
+        $kembalian = $bayar - $totalHarga;
+
+        DB::transaction(function () use ($request, $produk, $totalHarga, $bayar, $kembalian) {
             // Buat transaksi
             Transaksi::create([
                 'produk_id' => $request->produk_id,
                 'jumlah' => $request->jumlah,
                 'harga_satuan' => $produk->harga_jual,
                 'total_harga' => $totalHarga,
+                'bayar' => $bayar,
+                'kembalian' => $kembalian,
                 'metode_pembayaran' => $request->metode_pembayaran,
                 'tanggal_transaksi' => now()
             ]);

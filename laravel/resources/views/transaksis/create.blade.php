@@ -69,6 +69,15 @@
                     </select>
                 </div>
 
+                <div>
+                    <label for="bayar" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Bayar
+                    </label>
+                    <input type="number" name="bayar" id="bayar" step="1000" min="0" value="0" required
+                           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                    <p id="bayar-info" class="mt-1 text-sm text-gray-500 dark:text-gray-400">Masukkan jumlah uang yang dibayarkan.</p>
+                </div>
+
                 <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Ringkasan Pembayaran</h3>
                     <div class="space-y-2">
@@ -80,10 +89,18 @@
                             <span class="text-gray-600 dark:text-gray-300">Jumlah:</span>
                             <span id="jumlah-display" class="font-medium">0</span>
                         </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-300">Bayar:</span>
+                            <span id="bayar-display" class="font-medium">Rp 0</span>
+                        </div>
                         <hr class="border-gray-300 dark:border-gray-600">
                         <div class="flex justify-between text-lg font-bold">
                             <span class="text-gray-900 dark:text-white">Total:</span>
                             <span id="total-harga" class="text-green-600 dark:text-green-400">Rp 0</span>
+                        </div>
+                        <div class="flex justify-between text-lg font-bold">
+                            <span class="text-gray-900 dark:text-white">Kembalian:</span>
+                            <span id="kembalian" class="text-blue-600 dark:text-blue-300">Rp 0</span>
                         </div>
                     </div>
                 </div>
@@ -105,10 +122,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     const produkSelect = document.getElementById('produk_id');
     const jumlahInput = document.getElementById('jumlah');
+    const bayarInput = document.getElementById('bayar');
     const hargaSatuanDisplay = document.getElementById('harga-satuan');
     const jumlahDisplay = document.getElementById('jumlah-display');
+    const bayarDisplay = document.getElementById('bayar-display');
     const totalHargaDisplay = document.getElementById('total-harga');
+    const kembalianDisplay = document.getElementById('kembalian');
     const stokInfo = document.getElementById('stok-info');
+    const bayarInfo = document.getElementById('bayar-info');
 
     let selectedHarga = 0;
     let selectedStok = 0;
@@ -127,12 +148,20 @@ document.addEventListener('DOMContentLoaded', function() {
         updateTotal();
     });
 
+    bayarInput.addEventListener('input', function() {
+        updateTotal();
+    });
+
     function updateTotal() {
         const jumlah = parseInt(jumlahInput.value) || 0;
+        const bayar = parseFloat(bayarInput.value) || 0;
         const total = selectedHarga * jumlah;
+        const kembalian = bayar - total;
 
         jumlahDisplay.textContent = jumlah;
+        bayarDisplay.textContent = 'Rp ' + bayar.toLocaleString('id-ID');
         totalHargaDisplay.textContent = 'Rp ' + total.toLocaleString('id-ID');
+        kembalianDisplay.textContent = 'Rp ' + kembalian.toLocaleString('id-ID');
 
         // Validasi stok
         if (jumlah > selectedStok) {
@@ -143,6 +172,16 @@ document.addEventListener('DOMContentLoaded', function() {
             jumlahInput.setCustomValidity('');
             stokInfo.textContent = selectedStok > 0 ? `Stok tersedia: ${selectedStok}` : 'Stok habis';
             stokInfo.className = 'mt-1 text-sm text-gray-500 dark:text-gray-400';
+        }
+
+        if (bayar < total) {
+            bayarInput.setCustomValidity('Jumlah bayar harus sama atau lebih besar dari total');
+            bayarInfo.textContent = 'Bayar kurang dari total, mohon masukkan jumlah yang cukup.';
+            bayarInfo.className = 'mt-1 text-sm text-red-500';
+        } else {
+            bayarInput.setCustomValidity('');
+            bayarInfo.textContent = 'Masukkan jumlah uang yang dibayarkan.';
+            bayarInfo.className = 'mt-1 text-sm text-gray-500 dark:text-gray-400';
         }
     }
 });

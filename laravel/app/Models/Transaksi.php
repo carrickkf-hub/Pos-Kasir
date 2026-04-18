@@ -11,6 +11,8 @@ class Transaksi extends Model
         'jumlah',
         'harga_satuan',
         'total_harga',
+        'bayar',
+        'kembalian',
         'metode_pembayaran',
         'tanggal_transaksi'
     ];
@@ -18,7 +20,9 @@ class Transaksi extends Model
     protected $casts = [
         'tanggal_transaksi' => 'datetime',
         'harga_satuan' => 'decimal:2',
-        'total_harga' => 'decimal:2'
+        'total_harga' => 'decimal:2',
+        'bayar' => 'decimal:2',
+        'kembalian' => 'decimal:2'
     ];
 
     public function produk()
