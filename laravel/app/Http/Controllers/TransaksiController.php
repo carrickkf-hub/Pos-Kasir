@@ -11,7 +11,7 @@ class TransaksiController extends Controller
 {
     public function index()
     {
-        $transaksis = Transaksi::with('produk')->latest('tanggal_transaksi')->get();
+        $transaksis = Transaksi::with('details.produk')->latest('tanggal_transaksi')->get();
         return view('transaksis.index', compact('transaksis'));
     }
 
@@ -48,7 +48,7 @@ class TransaksiController extends Controller
 
         DB::transaction(function () use ($request, $produk, $totalHarga, $bayar, $kembalian) {
             // Buat transaksi
-            Transaksi::create([
+            $transaksi = Transaksi::create([
                 'produk_id' => $request->produk_id,
                 'jumlah' => $request->jumlah,
                 'harga_satuan' => $produk->harga_jual,
@@ -57,6 +57,14 @@ class TransaksiController extends Controller
                 'kembalian' => $kembalian,
                 'metode_pembayaran' => $request->metode_pembayaran,
                 'tanggal_transaksi' => now()
+            ]);
+
+            // Simpan detail transaksi
+            $transaksi->details()->create([
+                'produk_id' => $request->produk_id,
+                'jumlah' => $request->jumlah,
+                'harga_satuan' => $produk->harga_jual,
+                'total_harga' => $totalHarga,
             ]);
 
             // Kurangi stok produk

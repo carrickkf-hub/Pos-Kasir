@@ -29,4 +29,9 @@ class Transaksi extends Model
     {
         return $this->belongsTo(Produk::class);
     }
+
+    public function details()
+    {
+        return $this->hasMany(TransaksiDetail::class);
+    }
 }

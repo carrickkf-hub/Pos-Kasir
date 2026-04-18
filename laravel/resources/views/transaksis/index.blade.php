@@ -35,7 +35,17 @@
                         @forelse($transaksis as $transaksi)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $transaksi->produk->nama }}</td>
+                                <td>
+                                    @if($transaksi->details->isNotEmpty())
+                                        <ul class="list-unstyled mb-0">
+                                            @foreach($transaksi->details as $detail)
+                                                <li>{{ $detail->produk->nama }} ({{ $detail->jumlah }})</li>
+                                            @endforeach
+                                        </ul>
+                                    @else
+                                        {{ $transaksi->produk->nama }}
+                                    @endif
+                                </td>
                                 <td>{{ $transaksi->jumlah }}</td>
                                 <td>Rp {{ number_format($transaksi->harga_satuan, 0, ',', '.') }}</td>
                                 <td>Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}</td>
