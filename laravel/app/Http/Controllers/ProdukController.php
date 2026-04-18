@@ -26,9 +26,11 @@ class ProdukController extends Controller
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'harga_beli' => 'required|numeric|min:0',
-            'harga_jual' => 'required|numeric|min:0',
+            'harga_jual' => 'required|numeric|gte:harga_beli',
             'stok_awal' => 'required|integer|min:0',
             'kategori_id' => 'nullable|exists:kategoris,id',
+        ], [
+            'harga_jual.gte' => 'Harga jual harus lebih besar atau sama dengan harga beli.',
         ]);
 
         Produk::create(array_merge($request->only(['nama', 'deskripsi', 'harga_beli', 'harga_jual', 'stok_awal', 'kategori_id']), ['stok' => $request->input('stok_awal')]));
@@ -54,10 +56,12 @@ class ProdukController extends Controller
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'harga_beli' => 'required|numeric|min:0',
-            'harga_jual' => 'required|numeric|min:0',
+            'harga_jual' => 'required|numeric|gte:harga_beli',
             'stok' => 'required|integer|min:0',
             'stok_awal' => 'required|integer|min:0',
             'kategori_id' => 'nullable|exists:kategoris,id',
+        ], [
+            'harga_jual.gte' => 'Harga jual harus lebih besar atau sama dengan harga beli.',
         ]);
 
         $produk->update($request->only(['nama', 'deskripsi', 'harga_beli', 'harga_jual', 'stok', 'stok_awal', 'kategori_id']));
