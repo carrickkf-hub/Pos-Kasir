@@ -9,6 +9,9 @@
 <body>
     <div class="container mt-5">
         <h1>Daftar Produk</h1>
+        <div class="alert alert-info">
+            <strong>Total Produk:</strong> {{ $produks->count() }}
+        </div>
         <a href="{{ route('produks.create') }}" class="btn btn-primary mb-3">Tambah Produk</a>
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>

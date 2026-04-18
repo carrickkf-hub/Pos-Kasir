@@ -13,9 +13,35 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $kategori->nama }}</h5>
                 <p class="card-text">{{ $kategori->deskripsi }}</p>
+                <p class="card-text"><strong>Jumlah Produk:</strong> {{ $kategori->produks->count() }}</p>
                 <p class="card-text"><small class="text-muted">Dibuat pada: {{ $kategori->created_at }}</small></p>
             </div>
         </div>
+        @if($kategori->produks->count() > 0)
+            <h3 class="mt-4">Produk dalam Kategori Ini</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nama Produk</th>
+                            <th>Harga Beli</th>
+                            <th>Harga Jual</th>
+                            <th>Stok</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($kategori->produks as $produk)
+                            <tr>
+                                <td>{{ $produk->nama }}</td>
+                                <td>Rp{{ number_format($produk->harga_beli, 2, ',', '.') }}</td>
+                                <td>Rp{{ number_format($produk->harga_jual, 2, ',', '.') }}</td>
+                                <td>{{ $produk->stok }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
         <a href="{{ route('kategoris.index') }}" class="btn btn-secondary mt-3">Kembali</a>
     </div>
 </body>

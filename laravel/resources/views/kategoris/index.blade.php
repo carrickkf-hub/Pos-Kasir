@@ -9,6 +9,9 @@
 <body>
     <div class="container mt-5">
         <h1>Daftar Kategori</h1>
+        <div class="alert alert-info">
+            <strong>Total Kategori:</strong> {{ $kategoris->count() }} | <strong>Total Produk:</strong> {{ $totalProduk }}
+        </div>
         <a href="{{ route('kategoris.create') }}" class="btn btn-primary mb-3">Tambah Kategori</a>
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
@@ -19,6 +22,7 @@
                     <th>ID</th>
                     <th>Nama</th>
                     <th>Deskripsi</th>
+                    <th>Jumlah Produk</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -28,6 +32,7 @@
                         <td>{{ $kategori->id }}</td>
                         <td>{{ $kategori->nama }}</td>
                         <td>{{ $kategori->deskripsi }}</td>
+                        <td>{{ $kategori->produks_count }}</td>
                         <td>
                             <a href="{{ route('kategoris.show', $kategori) }}" class="btn btn-info btn-sm">Lihat</a>
                             <a href="{{ route('kategoris.edit', $kategori) }}" class="btn btn-warning btn-sm">Edit</a>
