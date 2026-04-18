@@ -12,6 +12,11 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">{{ $produk->nama }}</h5>
+                @if($produk->stok <= 5)
+                    <div class="alert alert-danger">
+                        <strong>⚠️ Stok Hampir Habis!</strong> Hanya tersisa {{ $produk->stok }} unit.
+                    </div>
+                @endif
                 <p class="card-text"><strong>Kategori:</strong> {{ $produk->kategori ? $produk->kategori->nama : 'Tidak ada' }}</p>
                 <p class="card-text">{{ $produk->deskripsi }}</p>
                 <p class="card-text"><strong>Harga Beli:</strong> Rp{{ number_format($produk->harga_beli, 2, ',', '.') }}</p>

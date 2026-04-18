@@ -12,7 +12,19 @@
         <div class="alert alert-info">
             <strong>Total Produk:</strong> {{ $produks->count() }}
         </div>
+        @if($stokHampirHabis->count() > 0)
+            <div class="alert alert-warning">
+                <h5>⚠️ Stok Hampir Habis (≤ 5)</h5>
+                <p>Ada {{ $stokHampirHabis->count() }} produk dengan stok rendah:</p>
+                <ul>
+                    @foreach($stokHampirHabis as $produk)
+                        <li><strong>{{ $produk->nama }}</strong> - Stok: {{ $produk->stok }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <a href="{{ route('produks.create') }}" class="btn btn-primary mb-3">Tambah Produk</a>
+        <a href="{{ route('stok.hampir.habis') }}" class="btn btn-warning mb-3 ms-2">⚠️ Stok Hampir Habis</a>
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
@@ -31,14 +43,19 @@
             </thead>
             <tbody>
                 @foreach($produks as $produk)
-                    <tr>
+                    <tr class="{{ $produk->stok <= 5 ? 'table-warning' : '' }}">
                         <td>{{ $produk->id }}</td>
                         <td>{{ $produk->nama }}</td>
                         <td>{{ $produk->kategori ? $produk->kategori->nama : '-' }}</td>
                         <td>Rp{{ number_format($produk->harga_beli, 2, ',', '.') }}</td>
                         <td>Rp{{ number_format($produk->harga_jual, 2, ',', '.') }}</td>
                         <td>{{ $produk->stok_awal }}</td>
-                        <td>{{ $produk->stok }}</td>
+                        <td>
+                            {{ $produk->stok }}
+                            @if($produk->stok <= 5)
+                                <span class="badge bg-danger ms-1">Hampir Habis</span>
+                            @endif
+                        </td>
                         <td>
                             <a href="{{ route('produks.show', $produk) }}" class="btn btn-info btn-sm">Lihat</a>
                             <a href="{{ route('produks.edit', $produk) }}" class="btn btn-warning btn-sm">Edit</a>

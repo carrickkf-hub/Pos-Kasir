@@ -14,7 +14,15 @@ class KategoriController extends Controller
     {
         $kategoris = Kategori::withCount('produks')->get();
         $totalProduk = $kategoris->sum('produks_count');
-        return view('kategoris.index', compact('kategoris', 'totalProduk'));
+
+        // Kategori dengan produk stok hampir habis
+        $kategorisStokRendah = Kategori::with(['produks' => function($query) {
+            $query->where('stok', '<=', 5);
+        }])->get()->filter(function($kategori) {
+            return $kategori->produks->count() > 0;
+        });
+
+        return view('kategoris.index', compact('kategoris', 'totalProduk', 'kategorisStokRendah'));
     }
 
     /**

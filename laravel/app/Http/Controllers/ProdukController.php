@@ -11,7 +11,8 @@ class ProdukController extends Controller
     public function index()
     {
         $produks = Produk::with('kategori')->get();
-        return view('produks.index', compact('produks'));
+        $stokHampirHabis = $produks->where('stok', '<=', 5);
+        return view('produks.index', compact('produks', 'stokHampirHabis'));
     }
 
     public function create()
@@ -74,5 +75,11 @@ class ProdukController extends Controller
         $produk->delete();
 
         return redirect()->route('produks.index')->with('success', 'Produk berhasil dihapus.');
+    }
+
+    public function stokHampirHabis()
+    {
+        $stokHampirHabis = Produk::with('kategori')->where('stok', '<=', 5)->get();
+        return view('stok-hampir-habis', compact('stokHampirHabis'));
     }
 }

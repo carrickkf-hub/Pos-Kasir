@@ -12,7 +12,16 @@
         <div class="alert alert-info">
             <strong>Total Kategori:</strong> {{ $kategoris->count() }} | <strong>Total Produk:</strong> {{ $totalProduk }}
         </div>
+        @if($kategorisStokRendah->count() > 0)
+            <div class="alert alert-warning">
+                <h5>⚠️ Kategori dengan Stok Hampir Habis</h5>
+                @foreach($kategorisStokRendah as $kategori)
+                    <p><strong>{{ $kategori->nama }}</strong> memiliki {{ $kategori->produks->count() }} produk dengan stok ≤ 5</p>
+                @endforeach
+            </div>
+        @endif
         <a href="{{ route('kategoris.create') }}" class="btn btn-primary mb-3">Tambah Kategori</a>
+        <a href="{{ route('stok.hampir.habis') }}" class="btn btn-warning mb-3 ms-2">⚠️ Stok Hampir Habis</a>
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
@@ -28,11 +37,19 @@
             </thead>
             <tbody>
                 @foreach($kategoris as $kategori)
-                    <tr>
+                    @php
+                        $hasLowStock = $kategori->produks()->where('stok', '<=', 5)->exists();
+                    @endphp
+                    <tr class="{{ $hasLowStock ? 'table-warning' : '' }}">
                         <td>{{ $kategori->id }}</td>
                         <td>{{ $kategori->nama }}</td>
                         <td>{{ $kategori->deskripsi }}</td>
-                        <td>{{ $kategori->produks_count }}</td>
+                        <td>
+                            {{ $kategori->produks_count }}
+                            @if($hasLowStock)
+                                <span class="badge bg-danger ms-1">Stok Rendah</span>
+                            @endif
+                        </td>
                         <td>
                             <a href="{{ route('kategoris.show', $kategori) }}" class="btn btn-info btn-sm">Lihat</a>
                             <a href="{{ route('kategoris.edit', $kategori) }}" class="btn btn-warning btn-sm">Edit</a>

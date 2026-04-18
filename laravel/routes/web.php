@@ -10,3 +10,6 @@ Route::get('/', function () {
 
 Route::resource('kategoris', KategoriController::class);
 Route::resource('produks', ProdukController::class);
+
+// Route untuk stok hampir habis
+Route::get('/stok-hampir-habis', [ProdukController::class, 'stokHampirHabis'])->name('stok.hampir.habis');
