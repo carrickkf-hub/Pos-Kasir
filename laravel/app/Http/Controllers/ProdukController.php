@@ -27,11 +27,11 @@ class ProdukController extends Controller
             'deskripsi' => 'nullable|string',
             'harga_beli' => 'required|numeric|min:0',
             'harga_jual' => 'required|numeric|min:0',
-            'stok' => 'required|integer|min:0',
+            'stok_awal' => 'required|integer|min:0',
             'kategori_id' => 'nullable|exists:kategoris,id',
         ]);
 
-        Produk::create($request->only(['nama', 'deskripsi', 'harga_beli', 'harga_jual', 'stok', 'kategori_id']));
+        Produk::create(array_merge($request->only(['nama', 'deskripsi', 'harga_beli', 'harga_jual', 'stok_awal', 'kategori_id']), ['stok' => $request->input('stok_awal')]));
 
         return redirect()->route('produks.index')->with('success', 'Produk berhasil ditambahkan.');
     }
@@ -56,10 +56,11 @@ class ProdukController extends Controller
             'harga_beli' => 'required|numeric|min:0',
             'harga_jual' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
+            'stok_awal' => 'required|integer|min:0',
             'kategori_id' => 'nullable|exists:kategoris,id',
         ]);
 
-        $produk->update($request->only(['nama', 'deskripsi', 'harga_beli', 'harga_jual', 'stok', 'kategori_id']));
+        $produk->update($request->only(['nama', 'deskripsi', 'harga_beli', 'harga_jual', 'stok', 'stok_awal', 'kategori_id']));
 
         return redirect()->route('produks.index')->with('success', 'Produk berhasil diperbarui.');
     }

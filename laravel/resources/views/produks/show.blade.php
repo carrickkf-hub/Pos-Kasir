@@ -16,7 +16,8 @@
                 <p class="card-text">{{ $produk->deskripsi }}</p>
                 <p class="card-text"><strong>Harga Beli:</strong> Rp{{ number_format($produk->harga_beli, 2, ',', '.') }}</p>
                 <p class="card-text"><strong>Harga Jual:</strong> Rp{{ number_format($produk->harga_jual, 2, ',', '.') }}</p>
-                <p class="card-text"><strong>Stok:</strong> {{ $produk->stok }}</p>
+                <p class="card-text"><strong>Stok Awal:</strong> {{ $produk->stok_awal }}</p>
+                <p class="card-text"><strong>Stok Saat Ini:</strong> {{ $produk->stok }}</p>
                 <p class="card-text"><small class="text-muted">Dibuat pada: {{ $produk->created_at }}</small></p>
             </div>
         </div>

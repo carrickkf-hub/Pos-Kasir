@@ -37,8 +37,8 @@
                 <input type="number" class="form-control" id="harga_jual" name="harga_jual" step="0.01" min="0" required>
             </div>
             <div class="mb-3">
-                <label for="stok" class="form-label">Stok</label>
-                <input type="number" class="form-control" id="stok" name="stok" min="0" required>
+                <label for="stok_awal" class="form-label">Stok Awal</label>
+                <input type="number" class="form-control" id="stok_awal" name="stok_awal" min="0" required>
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
             <a href="{{ route('produks.index') }}" class="btn btn-secondary">Kembali</a>

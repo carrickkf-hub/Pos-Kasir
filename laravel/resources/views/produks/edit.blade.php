@@ -38,7 +38,11 @@
                 <input type="number" class="form-control" id="harga_jual" name="harga_jual" value="{{ $produk->harga_jual }}" step="0.01" min="0" required>
             </div>
             <div class="mb-3">
-                <label for="stok" class="form-label">Stok</label>
+                <label for="stok_awal" class="form-label">Stok Awal</label>
+                <input type="number" class="form-control" id="stok_awal" name="stok_awal" value="{{ $produk->stok_awal }}" min="0" required>
+            </div>
+            <div class="mb-3">
+                <label for="stok" class="form-label">Stok Saat Ini</label>
                 <input type="number" class="form-control" id="stok" name="stok" value="{{ $produk->stok }}" min="0" required>
             </div>
             <button type="submit" class="btn btn-primary">Perbarui</button>
